@@ -33,6 +33,10 @@ jobs:
           git add .
           git commit -m "Update log.txt" || echo "No changes to commit"
 
+      - name: pull latest changes
+        run: |
+          git pull --rebase origin main
+
       - name: push changes
         run: |
           git push
