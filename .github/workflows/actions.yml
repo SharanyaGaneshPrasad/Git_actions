@@ -1,7 +1,6 @@
 name: run main.py
 
 on:
-  workflow_dispatch:  # Manual trigger option
   schedule:
     - cron: '*/1 * * * *'  # Every minute
 
@@ -10,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository content
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Use the latest version
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -34,9 +33,10 @@ jobs:
           git add .
           git commit -m "Update log.txt" || echo "No changes to commit"
 
-      - name: Pull latest changes
+      - name: Pull latest changes and resolve conflicts
         run: |
-          git pull --rebase origin main
+          git fetch origin
+          git rebase origin/main --strategy-option=theirs  # Automatically resolve conflicts in favor of the remote branch
 
       - name: Push changes
         run: |
