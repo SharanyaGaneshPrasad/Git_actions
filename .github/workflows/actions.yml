@@ -26,19 +26,11 @@ jobs:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
         run: python main.py  # This should generate log.txt
 
-      - name: Add log.txt
-        run: |
-          git add log.txt || echo "No changes in log.txt"  # Explicitly add the log.txt
-
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Update log.txt" || echo "No changes to commit"
-
-      - name: Pull latest changes and resolve conflicts
-        run: |
-          git pull --rebase origin main --strategy-option=theirs  # Pull and resolve conflicts
 
       - name: Push changes
         run: |
