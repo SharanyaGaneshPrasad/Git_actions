@@ -27,7 +27,7 @@ if __name__ == "__main__":
             api_content = r.json()
             jobs = api_content["data"]
             for job in jobs:
-                simple_log(f"Company {job["company_name"]}\n position :  {job["title"]}")
+                simple_log(f"Company {job['company_name']}\n position :  {job['title']}")
         else:
             simple_log(f"Failed to retrieve weather data. Status code: {r.status_code}")
     except Exception as e:
